@@ -1,0 +1,35 @@
+version: "3"
+services:
+  mysql_prod:
+    image: mysql:5.7
+    container_name: "mysql_prod"
+    ports:
+      - 7777:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=your_prod_password
+      - MYSQL_DATABASE=prod_db
+      - MYSQL_USER=your_prod_user
+      - MYSQL_PASSWORD=your_prod_password
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql_prod_data:/var/lib/mysql
+    restart: always
+
+  mysql_staging:
+    image: mysql:5.7
+    container_name: "mysql_staging"
+    ports:
+      - 8888:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=your_staging_password
+      - MYSQL_DATABASE=staging_db
+      - MYSQL_USER=your_staging_user
+      - MYSQL_PASSWORD=your_staging_password
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql_staging_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  mysql_prod_data:
+  mysql_staging_data:
